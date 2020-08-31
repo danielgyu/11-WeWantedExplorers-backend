@@ -1,3 +1,5 @@
+my_setting.py
+
 ### Django ###
 *.log
 *.pot
