@@ -1,9 +1,10 @@
 import my_setting
-
+import os
 from pathlib import Path
 
 DATABASES = my_setting.DATABASES
 SECRET_KEY = my_setting.SECRET_KEY
+ALGORITHM  = my_setting.ALGORITHM
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -27,10 +28,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'corsheaders',
+    'django_extensions',
+    
     'user',
     'resume',
-    'django_extensions',
     'company',
     'position',
 ]
@@ -141,3 +144,5 @@ CACHES = {
         }
     }
 }
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

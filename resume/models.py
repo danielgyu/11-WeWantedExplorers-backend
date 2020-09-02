@@ -1,15 +1,20 @@
-from django.db import models
+from django.db   import models
+from user.models import UserInformation
+from .functions   import (
+    Validate_title, Validate_writername, 
+    Validate_email, Validate_phone_number)
 
 class Resume(models.Model):
-    title             = models.CharField(max_length=150)
-    writer_name       = models.CharField(max_length=100)
-    email             = models.EmailField(null=True)
+    title             = models.CharField(max_length=150, validators=[Validate_title])
+    writer_name       = models.CharField(max_length=100, validators=[Validate_writername])
+    email             = models.CharField(max_length=100, validators=[Validate_email])
+    phone_number      = models.CharField(max_length=100, validators=[Validate_phone_number])
     description       = models.TextField(null=True)
     completion_status = models.CharField(max_length=100, null=True)
     is_fileupload     = models.BooleanField()
-    fileurl           = models.URLField(null=True)
+    fileurl           = models.URLField(null=True, blank=True)
     created_at        = models.DateField(auto_now_add=True)
-    user_information  = models.ForeignKey(UserInformation,on_delete=models.CASCADE, related_name='resume')
+    user_information  = models.ForeignKey(UserInformation, on_delete=models.CASCADE, related_name='resume')
     
     class Meta:
         db_table = 'resumes'
@@ -18,14 +23,22 @@ class Career(models.Model):
     company_name      = models.CharField(max_length=100)
     department        = models.CharField(max_length=100, null=True)
     position          = models.CharField(max_length=100, null=True)
-    accomplishment    = models.CharField(max_length=1000, null=True)
-    start_date        = models.DateField()
-    end_date          = models.DateField()
-    is_incumbent      = models.BooleanField()
+    start_date        = models.DateField(null=True)
+    end_date          = models.DateField(null=True)
+    is_incumbent      = models.BooleanField(null=True)
     resume            = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='career')
 
     class Meta:
         db_table = 'careers'
+
+class Accomplishment(models.Model):
+    name        = models.CharField(max_length=1000, null=True)
+    start_date  = models.DateField(null=True)
+    end_date    = models.DateField(null=True)
+    career      = models.ForeignKey(Career, on_delete=models.CASCADE, related_name='accomplishment')
+    
+    class Meta:
+        db_table = 'accomplishments'    
 
 class Education(models.Model):
     school_name       = models.CharField(max_length=100)
@@ -48,6 +61,7 @@ class AwardHistory(models.Model):
 
     class Meta:
         db_table = 'award_histories'
+
 class ForeignLanguage(models.Model):
     name    = models.CharField(max_length=150)
     level   = models.CharField(max_length=100)
@@ -61,7 +75,7 @@ class LanguageTest(models.Model):
     level             = models.CharField(max_length=100, null=True)
     score             = models.CharField(max_length=100, null=True)
     date              = models.DateField()
-    foreignLanguage   = models.ForeignKey(ForeignLanguage, on_delete=models.CASCADE, related_name='language_test')
+    foreignlanguage   = models.ForeignKey(ForeignLanguage, on_delete=models.CASCADE, related_name='language_test')
 
     class Meta:
         db_table = 'language_tests'
