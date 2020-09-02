@@ -3,7 +3,7 @@ import my_setting
 from pathlib import Path
 
 DATABASES = my_setting.DATABASES
-SECRET_KEY = my_setting.SECRETY_KEY
+SECRET_KEY = my_setting.SECRET_KEY
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -30,6 +30,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'user',
     'resume',
+    'django_extensions',
+    'company',
+    'position',
 ]
 
 MIDDLEWARE = [
