@@ -33,8 +33,8 @@ class Address(models.Model):
     country    = models.CharField(max_length = 100)
     city       = models.CharField(max_length = 100)
     line       = models.CharField(max_length = 200)
-    latitude   = models.DecimalField(max_digits = 25, decimal_places = 15, null = True)
-    longtitude = models.DecimalField(max_digits = 25, decimal_places = 15, null = True)
+    latitude   = models.DecimalField(max_digits = 9, decimal_places = 7, null = True)
+    longtitude = models.DecimalField(max_digits = 10, decimal_places = 7, null = True)
 
 class Tag(models.Model):
     name     = models.CharField(max_length = 100)
