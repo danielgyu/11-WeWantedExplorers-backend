@@ -1,12 +1,17 @@
-from django.core.cache import cache
-from django.db.models  import Q, Avg
-from django.http       import JsonResponse
-from django.shortcuts  import render
-from django.views      import View
+from django.core.cache   import cache
+from django.core.signals import request_finished
+from django.dispatch     import Signal
+from django.db.models    import Q, Avg
+from django.http         import JsonResponse
+from django.shortcuts    import render
+from django.views        import View
 
 from company.models import Company
 
-from .models import Position
+from .models  import Position
+from .signals import position_view_callback
+
+request_finished.connect(position_view_callback)
 
 class PositionView(View):
     def get(self, request):
