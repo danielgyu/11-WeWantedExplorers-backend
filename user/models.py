@@ -9,7 +9,7 @@ from .validator      import (
 
 class UserAccount(models.Model):
     email          = models.CharField(max_length=100, validators=[Validate_email], unique=True)
-    platform_type  = models.CharField(max_length=100, blank=True)
+    platform_type  = models.CharField(max_length=100)
     created_at     = models.DateTimeField(auto_now_add=True)
     is_deleted     = models.BooleanField(null=True, blank=True)
 
