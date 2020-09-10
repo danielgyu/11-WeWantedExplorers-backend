@@ -270,6 +270,3 @@ class GoogleSignInTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(response.json(), 
         {"message": "SignUp completed"})
-
-class ApplicationTest(TestCase):
-    

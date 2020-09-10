@@ -1,5 +1,6 @@
 my_setting.py
-scripts/
+scripts
+db_wwe.sql
 
 ### Django ###
 *.log
