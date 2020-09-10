@@ -13,6 +13,6 @@ urlpatterns = [
      path('/signup', SignUpView.as_view()),
      path('/signin', SignInView.as_view()),
      path('/googlesignin', GoogleSignInView.as_view()),
-     path('/appication', ApplicationView.as_view()),
+     path('/application', ApplicationView.as_view()),
      path('/applicationstatus', ApplicationStatusView.as_view())
 ]

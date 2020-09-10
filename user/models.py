@@ -1,17 +1,17 @@
 from django.db       import models
-from company.models  import Company
-from position.models import Position
 from .validator      import (
     Validate_email, 
     Validate_phonenumber, 
     Validate_password
     )
 
+from company.models  import Company
+
 class UserAccount(models.Model):
     email          = models.CharField(max_length=100, validators=[Validate_email], unique=True)
     platform_type  = models.CharField(max_length=100)
     created_at     = models.DateTimeField(auto_now_add=True)
-    is_deleted     = models.BooleanField(null=True, blank=True)
+    is_deleted     = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'user_accounts'
@@ -21,7 +21,7 @@ class UserInformation(models.Model):
     phone_number   = models.CharField(max_length=100, validators=[Validate_phonenumber], unique=True)
     password       = models.CharField(max_length=100, validators=[Validate_password])
     updated_at     = models.DateField(auto_now=True)
-    is_deleted     = models.BooleanField(null=True, blank=True)
+    is_deleted     = models.BooleanField(default=False)
     user_account   = models.ForeignKey('UserAccount',on_delete=models.CASCADE, related_name='userinfo')
 
     class Meta:
@@ -77,9 +77,9 @@ class SuggestionStatus(models.Model):
         db_table = 'suggest_status'
 
 class ApplicationStatus(models.Model):
-    company          = models.ForeignKey(Position, on_delete=models.CASCADE, related_name='status_company')
-    position         = models.ForeignKey(Position, on_delete=models.CASCADE, related_name='status_position')
-    logo_url         = models.ForeignKey(Position, on_delete=models.CASCADE, related_name='status_logo')
+    company          = models.ForeignKey('position.Position', on_delete=models.CASCADE, related_name='status_company')
+    position         = models.ForeignKey('position.Position', on_delete=models.CASCADE, related_name='status_position')
+    logo_url         = models.ForeignKey('position.Position', on_delete=models.CASCADE, related_name='status_logo')
     process_status   = models.CharField(max_length=200)
     recommendation   = models.CharField(max_length=200, null=True)
     is_compensation  = models.BooleanField()

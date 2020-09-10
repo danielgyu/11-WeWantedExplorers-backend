@@ -3,11 +3,10 @@ from django.db.models import Avg
 
 class MainCategory(models.Model):
     name = models.CharField(max_length = 100)
-
     @classmethod
     def salary_average(cls, id, year):
         average = cls.objects.get(id= id).subcategory_set.filter(salary__year = year).\
-                aggregate(Avg('salary__payroll')).get('salary__payroll__avg')
+aggregate(Avg('salary__payroll')).get('salary__payroll__avg')
         return average
 
 class SubCategory(models.Model):
@@ -31,7 +30,7 @@ class Salary(models.Model):
 class CategoryToCompany(models.Model):
     category = models.ForeignKey(SubCategory, on_delete = models.CASCADE)
     company  = models.ForeignKey(Company, on_delete = models.CASCADE)
-
+    
 class CategoryToSalary(models.Model):
     category = models.ForeignKey(SubCategory, on_delete = models.CASCADE)
     salary = models.ForeignKey(Salary, on_delete = models.CASCADE)
