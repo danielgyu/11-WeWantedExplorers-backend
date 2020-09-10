@@ -187,11 +187,10 @@ class ApplicationStatusView(View):
     @signin_decorator
     def get(sef,request):
         try : 
-            data = json.loads(request.body)
             user = request.user.userinfo.first()
             applications = ApplicationStatus.objects.select_related(
                 "company", "position", "logo_url"
-            ).filter(user_information=user).all()
+            ).filter(user_information=user)
 
             body = {
                 "process" : {

@@ -31,18 +31,18 @@ from user.decorator         import signin_decorator
 class NewResumeView(View): # 새 이력서
     @signin_decorator
     def post(self, request):
-        data = json.loads(request.body)
+        data = json.loads(request.body) 
         try:
-            if UserAccount.objects.filter(email=data['user_email']).exists():
+            if UserAccount.objects.filter(email=request.user.email).exists():
                 user = UserAccount.objects.get(
-                    email=data['user_email']).userinfo.first()
+                    email=request.user.email).userinfo.first()
                 
                 count = user.resume.filter(writer_name=user.name).count()
 
                 resume = Resume(
                     title             = f"{user.name} {count}",
                     writer_name       = user.name,
-                    email             = data['user_email'],
+                    email             = request.user.email,
                     phone_number      = user.phone_number,
                     description       = f"안녕하세요 {user.name}입니다",
                     completion_status = '작성 중',
@@ -85,7 +85,7 @@ class ResumeView(View): # 기존 이력서 작성 페이지
     @signin_decorator
     def get(self, request, id):
         user_id = request.user.userinfo.first().id
-        if Resume.objects.get(id=id).user_information != user_id:
+        if Resume.objects.get(id=id).user_information_id != user_id:
             return JsonResponse({"message" : "FORBIDDEN"}, status=403)
         if Resume.objects.filter(id=id).exists() :
             resume = Resume.objects.prefetch_related(
@@ -139,7 +139,8 @@ class ResumeView(View): # 기존 이력서 작성 페이지
     @signin_decorator
     def post(self, request, id): #게시물 업데이트  
         data = json.loads(request.body)
-        if Resume.objects.get(id=id).user_information != user_id:
+        user_id = request.user.userinfo.first().id
+        if Resume.objects.get(id=id).user_information_id != user_id:
             return JsonResponse({"message" : "FORBIDDEN"}, status=403)
         if Resume.objects.filter(id=id).exists() :
             try :
