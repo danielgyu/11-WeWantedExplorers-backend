@@ -1,13 +1,11 @@
 # 11-WeWantedExplorers Readme
 
 ## Introduction
----
 - Wanted - 스타트업 채용 사이트 (wanted.co.kr) 클론
 - 개발기간 : 2020.08.31 - 2020.09.11 (2주)
 - 개발인원 : Front-end 4명, Back-end 2명
 
 ## Achievement
----
 - 사이트 선정 후, 전체적인 설계부터 배포까지 구현
 - 스크럼 적용, 2주간 매일 스탠드업 미팅과 2번의 스프린트
 - git rebase를 사용해 branch 관리
@@ -15,7 +13,6 @@
 - 최종 배포는 Docker container로 AWS EC2
 
 ## Skill Stacks
----
 - Python
 - Django
 - Bcrypt
@@ -26,7 +23,6 @@
 - AWS EC2, RDS, Elasticache
 
 ## Apps
----
 - position : 포지션(e.g. 백엔드, 프론트엔드, 등) 공고
 - company : 회사 정보
 - resume : 이력서 관리
